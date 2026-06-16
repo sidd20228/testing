@@ -1,0 +1,72 @@
+# ── Cache & model artifacts ───────────────────────────────────────────────────
+cache/
+.cache/
+data/
+
+# ── Notebook outputs & checkpoints ───────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+*.dylib
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── ML model files ────────────────────────────────────────────────────────────
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.pkl
+*.pickle
+
+# ── Numpy / FAISS index files ─────────────────────────────────────────────────
+*.npy
+*.npz
+*.faiss
+*.index
+
+# ── Generated plots & figures ─────────────────────────────────────────────────
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+runs/
+wandb/
+mlruns/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Environment variables ─────────────────────────────────────────────────────
+.env
+.env.*
