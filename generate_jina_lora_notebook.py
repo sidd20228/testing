@@ -898,10 +898,13 @@ class JinaReranker:
         if self._model is None:
             try:
                 self._tokenizer = AutoTokenizer.from_pretrained(self.model_name, trust_remote_code=True)
+                if self._tokenizer.pad_token is None:
+                    self._tokenizer.pad_token = self._tokenizer.eos_token
                 self._model = AutoModelForSequenceClassification.from_pretrained(
                     self.model_name,
                     torch_dtype=torch.float16 if "cuda" in self.device else torch.float32,
                     trust_remote_code=True,
+                    pad_token_id=self._tokenizer.pad_token_id,
                 )
                 self._model.to(self.device)
                 self._model.eval()
@@ -1655,10 +1658,13 @@ class JinaReranker:
         if self._model is None:
             try:
                 self._tokenizer = AutoTokenizer.from_pretrained(self.model_name, trust_remote_code=True)
+                if self._tokenizer.pad_token is None:
+                    self._tokenizer.pad_token = self._tokenizer.eos_token
                 self._model = AutoModelForSequenceClassification.from_pretrained(
                     self.model_name,
                     torch_dtype=torch.float16 if "cuda" in self.device else torch.float32,
                     trust_remote_code=True,
+                    pad_token_id=self._tokenizer.pad_token_id,
                 )
                 self._model.to(self.device)
                 self._model.eval()
@@ -1886,6 +1892,7 @@ def fine_tune_jina_lora(base_model_name, train_dataset, val_samples, lora_config
         num_labels=1,
         torch_dtype=torch.float16 if "cuda" in device else torch.float32,
         trust_remote_code=True,
+        pad_token_id=tokenizer.pad_token_id,
     )
     peft_model = get_peft_model(base_model, lora_config)
     peft_model.print_trainable_parameters()
@@ -2036,6 +2043,7 @@ cells.append(code("""def load_finetuned_jina_reranker(base_model_name, lora_adap
         num_labels=1,
         torch_dtype=torch.float16 if "cuda" in device else torch.float32,
         trust_remote_code=True,
+        pad_token_id=tokenizer.pad_token_id,
     )
     peft_model = PeftModel.from_pretrained(base_model, lora_adapter_path)
     merged_model = peft_model.merge_and_unload()
